@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "327162474859",
+    "project_id": "shopfood-5b0f8",
+    "storage_bucket": "shopfood-5b0f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327162474859:android:84e3f63876ab3dfc365c2e",
+        "android_client_info": {
+          "package_name": "com.example.shopfoodapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChXD7j3fDwqs50syApUQTZZk83rg7LhX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
