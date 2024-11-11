@@ -2,7 +2,7 @@ package com.example.shopfoodapp.Domain;
 
 public class Price {
     private int Id;
-    private String value;
+    private String Value;
 
     public Price() {
 
@@ -10,7 +10,7 @@ public class Price {
 
     @Override
     public String toString() {
-        return value;
+        return Value;
     }
 
     public int getId() {
@@ -22,10 +22,10 @@ public class Price {
     }
 
     public String getValue() {
-        return value;
+        return Value;
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.Value = value;
     }
 }

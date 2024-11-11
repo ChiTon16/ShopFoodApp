@@ -20,28 +20,28 @@ import com.example.shopfoodapp.R;
 
 import java.util.ArrayList;
 
-public class BestFoodAdapter extends RecyclerView.Adapter<BestFoodAdapter.viewholder> {
+public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewholder> {
     ArrayList<Foods> items;
     Context context;
 
-    public BestFoodAdapter(ArrayList<Foods> items) {
+    public FoodListAdapter(ArrayList<Foods> items) {
         this.items = items;
     }
 
     @NonNull
     @Override
-    public BestFoodAdapter.viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodListAdapter.viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_bestdeal,parent, false);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.viewholder_list_food, parent, false);
         return new viewholder(inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BestFoodAdapter.viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull FoodListAdapter.viewholder holder, int position) {
         holder.titleTxt.setText(items.get(position).getTitle());
-        holder.priceTxt.setText("$"+items.get(position).getPrice());
         holder.timeTxt.setText(items.get(position).getTimeValue() + "min");
-        holder.starTxt.setText("" + items.get(position).getStar());
+        holder.priceTxt.setText("$" + items.get(position).getPrice());
+        holder.rateTxt.setText(""+items.get(position).getStar());
 
         Glide.with(context)
                 .load(items.get(position).getImagePath())
@@ -61,15 +61,17 @@ public class BestFoodAdapter extends RecyclerView.Adapter<BestFoodAdapter.viewho
     }
 
     public class viewholder extends RecyclerView.ViewHolder {
-        TextView titleTxt, priceTxt, starTxt, timeTxt;
+        TextView titleTxt, priceTxt, rateTxt, timeTxt;
         ImageView pic;
         public viewholder(@NonNull View itemView) {
             super(itemView);
-            titleTxt = itemView.findViewById(R.id.titleText);
+
+            titleTxt = itemView.findViewById(R.id.titleTxt);
             priceTxt = itemView.findViewById(R.id.priceTxt);
-            starTxt = itemView.findViewById(R.id.starTxt);
+            rateTxt = itemView.findViewById(R.id.rateTxt);
             timeTxt = itemView.findViewById(R.id.timeTxt);
-            pic = itemView.findViewById(R.id.pic);
+            pic = itemView.findViewById(R.id.img);
+
         }
     }
 }
