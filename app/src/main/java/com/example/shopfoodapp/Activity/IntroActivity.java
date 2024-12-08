@@ -3,15 +3,7 @@ package com.example.shopfoodapp.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.example.shopfoodapp.R;
 import com.example.shopfoodapp.databinding.ActivityIntroBinding;
 
 public class IntroActivity extends BaseActivity {
@@ -37,6 +29,6 @@ ActivityIntroBinding binding;
             }
         });
 
-        binding.signupBtn.setOnClickListener(view -> startActivity(new Intent(IntroActivity.this, SingupActivity.class)));
+        binding.signupBtn.setOnClickListener(view -> startActivity(new Intent(IntroActivity.this, SignupActivity.class)));
     }
 }

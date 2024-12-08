@@ -58,6 +58,7 @@ import java.util.ArrayList;
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
             });
+
             binding.searchBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -70,6 +71,8 @@ import java.util.ArrayList;
                     }
                 }
             });
+
+            binding.cartBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, CartActivity.class)));
         }
 
         private void initBestFood() {

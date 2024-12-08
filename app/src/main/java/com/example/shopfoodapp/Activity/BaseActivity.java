@@ -11,10 +11,12 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.shopfoodapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class BaseActivity extends AppCompatActivity {
 FirebaseAuth mAuth;
 FirebaseDatabase database;
+FirebaseFirestore db = FirebaseFirestore.getInstance();
 public String TAG="uilover";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

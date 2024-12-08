@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.shopfoodapp.Domain.Foods;
+import com.example.shopfoodapp.Helper.ManagmentCart;
 import com.example.shopfoodapp.R;
 import com.example.shopfoodapp.databinding.ActivityDetailBinding;
 
@@ -18,6 +19,7 @@ public class DetailActivity extends BaseActivity {
     ActivityDetailBinding binding;
     private Foods object;
     private int num = 1;
+    private ManagmentCart managmentCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,8 @@ public class DetailActivity extends BaseActivity {
     }
 
     private void setVariable() {
+        managmentCart = new ManagmentCart(this);
+
         binding.backBtn.setOnClickListener(view -> finish());
 
         Glide.with(DetailActivity.this)
@@ -42,6 +46,25 @@ public class DetailActivity extends BaseActivity {
         binding.rateTxt.setText(object.getStar() + "rating");
         binding.ratingBar.setRating((float) object.getStar());
         binding.totalTxt.setText((num*object.getPrice() + "$"));
+
+        binding.plusBtn.setOnClickListener(view -> {
+            num = num + 1;
+            binding.numTxt.setText(num + " ");
+            binding.totalTxt.setText("$" + (num* object.getPrice()));
+        });
+
+        binding.minusBtn.setOnClickListener(view -> {
+            if (num > 1) {
+                num = num - 1;
+                binding.numTxt.setText(num + " ");
+                binding.totalTxt.setText("$" + (num* object.getPrice()));
+            }
+        });
+
+        binding.addBtn.setOnClickListener(view -> {
+            object.setNumberInCart(num);
+            managmentCart.insertFood(object);
+        });
     }
 
     private void getIntentExtra() {
