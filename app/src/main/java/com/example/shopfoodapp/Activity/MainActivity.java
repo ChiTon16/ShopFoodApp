@@ -22,6 +22,7 @@ import com.example.shopfoodapp.R;
 import com.example.shopfoodapp.databinding.ActivityMainBinding;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +52,24 @@ import java.util.ArrayList;
     }
 
         private void setVariable() {
+            FirebaseUser user = mAuth.getCurrentUser();
+            String userId = user.getUid();  // Lấy userId từ FirebaseAuth
+
+            // Lấy dữ liệu username từ Firestore
+            db.collection("users").document(userId)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String username = documentSnapshot.getString("username");
+                            binding.txtUserName.setText(username);  // Hiển thị username lên TextView
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Xử lý lỗi nếu lấy dữ liệu thất bại
+                        binding.txtUserName.setText("Error");
+                    });
+
+
             binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
