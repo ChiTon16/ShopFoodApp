@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
@@ -98,28 +99,82 @@ import java.util.ArrayList;
             DatabaseReference myRef = database.getReference("Foods");
             binding.progressBarBestFood.setVisibility(View.VISIBLE);
             ArrayList<Foods> list = new ArrayList<>();
-            Query query = myRef.orderByChild("BestFood").equalTo(true);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            binding.priceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        for (DataSnapshot issue: snapshot.getChildren()) {
-                            list.add(issue.getValue(Foods.class));
+                public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) {
+                    // Lấy `priceId` từ Spinner
+                    Price selectedPrice = (Price) parentView.getItemAtPosition(position);
+                    int selectedPriceId = selectedPrice.getId(); // `getId()` là phương thức trong lớp Price để lấy `priceId`
+
+                    // Truy vấn Firebase dựa trên `BestFood` và `priceId`
+                    Query query = myRef.orderByChild("BestFood").equalTo(true); // Lọc các món ăn là BestFood
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            list.clear(); // Xóa dữ liệu cũ trước khi thêm món ăn mới
+                            if (snapshot.exists()) {
+                                for (DataSnapshot issue : snapshot.getChildren()) {
+                                    Foods food = issue.getValue(Foods.class);
+
+                                    // Lọc món ăn theo `priceId`
+                                    if (food != null && food.getPriceId() == selectedPriceId) {
+                                        list.add(food); // Thêm món ăn vào danh sách nếu `priceId` khớp
+                                    }
+                                }
+
+                                // Cập nhật RecyclerView với danh sách món ăn đã lọc
+                                if (list.size() > 0) {
+                                    // Ẩn TextView thông báo "Không có món ăn"
+                                    binding.noFoodTextView.setVisibility(View.GONE);
+                                    binding.bestFoodView.setVisibility(View.VISIBLE);
+                                    binding.bestFoodView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                                    BestFoodAdapter adapter = new BestFoodAdapter(list);
+                                    binding.bestFoodView.setAdapter(adapter);
+                                } else {
+                                    binding.noFoodTextView.setVisibility(View.VISIBLE);
+                                    binding.bestFoodView.setVisibility(View.GONE);
+                                }
+                            }
+                            binding.progressBarBestFood.setVisibility(View.GONE); // Ẩn progress bar khi đã tải xong
                         }
-                        if (list.size()>0){
-                            binding.bestFoodView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                            RecyclerView.Adapter adapter = new BestFoodAdapter(list);
-                            binding.bestFoodView.setAdapter(adapter);
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("MainActivity", "Database error: " + error.getMessage());
                         }
-                        binding.progressBarBestFood.setVisibility(View.GONE);
-                    }
+                    });
+
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                public void onNothingSelected(AdapterView<?> adapterView) {
 
                 }
             });
+
+//            Query query = myRef.orderByChild("BestFood").equalTo(true);
+//            query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    if (snapshot.exists()) {
+//                        for (DataSnapshot issue: snapshot.getChildren()) {
+//                            list.add(issue.getValue(Foods.class));
+//                        }
+//                        if (list.size()>0){
+//                            binding.bestFoodView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+//                            RecyclerView.Adapter adapter = new BestFoodAdapter(list);
+//                            binding.bestFoodView.setAdapter(adapter);
+//                        }
+//                        binding.progressBarBestFood.setVisibility(View.GONE);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
         }
 
         private void initCategory() {
