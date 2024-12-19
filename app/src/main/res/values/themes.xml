@@ -18,4 +18,32 @@
         <item name="android:textStyle">bold</item>
 
     </style>
+
+<!--    Light mode   -->
+    <!--  background light mode  -->
+    <style name="Screen">
+        <item name="android:background">#FFFFFFFF</item>
+    </style>
+    <!--  text background lightmode  -->
+    <style name="TEXT">
+        <item name="android:textColor">#FF000000</item>
+    </style>
+    <!--  tint light mode  -->
+    <style name="Tint">
+        <item name="tint">#FF000000</item>
+    </style>
+    <!--  thumbnail light mode  -->
+    <style name="Thumbnail">
+        <item name="thumbTint">#FF000000</item>
+    </style>
+    <!--  thumbnail light mode  -->
+    <style name="Edt">
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:background">#FFFFFFFF</item>
+        <item name="backgroundTint">#FFFFFFFF</item>
+    </style>
+    <!--  thumbnail light mode  -->
+    <style name="Nen">
+        <item name="android:background">#F3F5F7</item>
+    </style>
 </resources>

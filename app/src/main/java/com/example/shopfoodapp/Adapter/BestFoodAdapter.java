@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.shopfoodapp.Activity.DetailActivity;
 import com.example.shopfoodapp.Domain.Foods;
+import com.example.shopfoodapp.Helper.ManagmentCart;
 import com.example.shopfoodapp.R;
 
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ import java.util.ArrayList;
 public class BestFoodAdapter extends RecyclerView.Adapter<BestFoodAdapter.viewholder> {
     ArrayList<Foods> items;
     Context context;
+    private Foods object;
+    private int num = 1;
+    private ManagmentCart managmentCart;
 
     public BestFoodAdapter(ArrayList<Foods> items) {
         this.items = items;
@@ -45,10 +49,24 @@ public class BestFoodAdapter extends RecyclerView.Adapter<BestFoodAdapter.viewho
 
         Glide.with(context)
                 .load(items.get(position).getImagePath())
-                .transform(new CenterCrop(), new RoundedCorners(30))
+                .transform(new CenterCrop())
                 .into(holder.pic);
 
-        holder.itemView.setOnClickListener(view -> {
+        holder.cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Foods object = items.get(position); // Gán object từ danh sách items
+                object.setNumberInCart(object.getNumberInCart() + num);
+
+                if (managmentCart == null) {
+                    managmentCart = new ManagmentCart(context); // Khởi tạo nếu chưa có
+                }
+                object.setNumberInCart(object.getNumberInCart() + num);
+                managmentCart.insertFood(object);
+            }
+        });
+
+        holder.pic.setOnClickListener(view -> {
             Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra("object", items.get(position));
             context.startActivity(intent);
@@ -61,7 +79,7 @@ public class BestFoodAdapter extends RecyclerView.Adapter<BestFoodAdapter.viewho
     }
 
     public class viewholder extends RecyclerView.ViewHolder {
-        TextView titleTxt, priceTxt, starTxt, timeTxt;
+        TextView titleTxt, priceTxt, starTxt, timeTxt, cartBtn;
         ImageView pic;
         public viewholder(@NonNull View itemView) {
             super(itemView);
@@ -69,7 +87,9 @@ public class BestFoodAdapter extends RecyclerView.Adapter<BestFoodAdapter.viewho
             priceTxt = itemView.findViewById(R.id.priceTxt);
             starTxt = itemView.findViewById(R.id.starTxt);
             timeTxt = itemView.findViewById(R.id.timeTxt);
+            cartBtn = itemView.findViewById(R.id.add_cart_Btn);
             pic = itemView.findViewById(R.id.pic);
         }
     }
+
 }

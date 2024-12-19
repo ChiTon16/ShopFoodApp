@@ -45,25 +45,45 @@ public class ListFoodsActivity extends BaseActivity {
 
     }
 
+    public static String normalizeString(String input) {
+        if (input == null) return null;
+        // Chuẩn hóa chuỗi để loại bỏ dấu
+        String normalized = java.text.Normalizer.normalize(input, java.text.Normalizer.Form.NFD);
+        normalized = normalized.replaceAll("\\p{M}", ""); // Loại bỏ dấu
+        return normalized.toLowerCase(); // Chuyển về chữ thường
+    }
+
     private void initList() {
         DatabaseReference myRef = database.getReference("Foods");
         binding.progressBar.setVisibility(View.VISIBLE);
         ArrayList<Foods> list = new ArrayList<>();
 
-        Query query;
-        if (isSearch){
-            query = myRef.orderByChild("Title").startAt(searchText).endAt(searchText+ '\uf8ff');
-        } else  {
-            query = myRef.orderByChild("CategoryId").equalTo(categoryId);
-        }
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot issue : snapshot.getChildren()) {
-                        list.add(issue.getValue(Foods.class));
+                        Foods food = issue.getValue(Foods.class);
+
+                        if (food != null) {
+                            if (isSearch) {
+                                // Chuẩn hóa cả tiêu đề và từ khóa tìm kiếm
+                                String normalizedTitle = normalizeString(food.getTitle());
+                                String normalizedSearchKey = normalizeString(searchText);
+
+                                if (normalizedTitle.contains(normalizedSearchKey)) {
+                                    list.add(food);
+                                }
+                            } else if(categoryId == -1) {
+                                list.add(food);
+                            }  else if (food.getCategoryId() == categoryId) {
+                                // Nếu không phải tìm kiếm, lọc theo danh mục
+                                list.add(food);
+                            }
+                        }
                     }
                 }
+
                 if (list.size() > 0) {
                     binding.foodListView.setLayoutManager(new GridLayoutManager(ListFoodsActivity.this, 2));
                     adapterListFood = new FoodListAdapter(list);
@@ -74,9 +94,40 @@ public class ListFoodsActivity extends BaseActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("ListFoodsActivity", "Database error: " + error.getMessage());
             }
         });
+
+//        Query query;
+//        if (isSearch){
+//            query = myRef.orderByChild("Title").startAt(searchText).endAt(searchText+ '\uf8ff');
+//        } else if (categoryId == -1) {
+//            // Lấy tất cả các món ăn nếu CategoryId = -1
+//            query = myRef;
+//        } else {
+//            query = myRef.orderByChild("CategoryId").equalTo(categoryId);
+//        }
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    for (DataSnapshot issue : snapshot.getChildren()) {
+//                        list.add(issue.getValue(Foods.class));
+//                    }
+//                }
+//                if (list.size() > 0) {
+//                    binding.foodListView.setLayoutManager(new GridLayoutManager(ListFoodsActivity.this, 2));
+//                    adapterListFood = new FoodListAdapter(list);
+//                    binding.foodListView.setAdapter(adapterListFood);
+//                }
+//                binding.progressBar.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     private void getIntentExtra() {

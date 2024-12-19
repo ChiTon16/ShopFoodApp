@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/white" />
+    <size android:width="120dp" android:height="120dp" /> <!-- Kích thước cố định -->
+    <corners android:radius="60dp" /> <!-- Bo tròn một nửa kích thước -->
+</shape>

@@ -1,317 +1,377 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    style="@style/Screen"
     tools:context=".Activity.MainActivity">
 
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+<!--        <androidx.core.widget.NestedScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginBottom="80dp">-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Welcome"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    style="@style/Nen"-->
+<!--                    android:orientation="vertical">-->
 
-                <TextView
-                    android:id="@+id/txtUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lionel Messi"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginStart="16dp"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:layout_marginEnd="16dp">-->
 
-                <ImageView
-                    android:id="@+id/logoutBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/logout" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="48dp"-->
+<!--                            android:layout_height="48dp"-->
+<!--                            android:src="@drawable/avtpro"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toStartOf="@+id/txtUserName"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="50dp"-->
+<!--                            android:layout_marginTop="8dp"-->
+<!--                            android:text="Welcome"-->
+<!--                            style="@style/TEXT"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center"
-                android:background="@drawable/grey_background"
-                android:orientation="horizontal">
+<!--                        <TextView-->
+<!--                            android:id="@+id/txtUserName"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Lionel Messi"-->
+<!--                            style="@style/TEXT"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView" />-->
 
-                <ImageView
-                    android:id="@+id/filterBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="@drawable/grey_background"
-                    android:padding="12dp"
-                    app:srcCompat="@drawable/settings" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/logoutBtn"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:srcCompat="@drawable/logout"-->
+<!--                            style="@style/Tint" />-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/grey_background"
-                    android:orientation="horizontal">
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                    <EditText
-                        android:id="@+id/searchEdt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="4dp"
-                        android:layout_weight="1"
-                        android:background="@color/grey"
-                        android:backgroundTint="@color/grey"
-                        android:ems="10"
-                        android:hint="Search Food..."
-                        android:inputType="text"
-                        android:padding="8dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/blue_grey"
-                        android:textColorHint="@color/blue_grey"
-                        android:textSize="16sp" />
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="350dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginStart="16dp"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        style="@style/Nen"-->
+<!--                        android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:id="@+id/searchBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="4dp"
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:background="@drawable/grey_background"-->
+<!--                            android:orientation="horizontal">-->
 
-                        android:background="@color/grey"
-                        android:padding="4dp"
-                        app:srcCompat="@drawable/search_icon" />
-                </LinearLayout>
+<!--                            <EditText-->
+<!--                                android:id="@+id/searchEdt"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_marginTop="4dp"-->
+<!--                                android:layout_marginBottom="4dp"-->
+<!--                                android:layout_marginLeft="4dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                style="@style/Edt"-->
+<!--                                android:ems="10"-->
+<!--                                android:hint="Search Food..."-->
+<!--                                android:inputType="text"-->
+<!--                                android:padding="8dp"-->
+<!--                                android:textAlignment="center"-->
+<!--                                android:textColor="@color/blue_grey"-->
+<!--                                android:textColorHint="@color/blue_grey"-->
+<!--                                android:textSize="16sp" />-->
 
-                <ImageView
-                    android:id="@+id/cartBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/grey_background"
-                    android:padding="12dp"
-                    app:srcCompat="@drawable/basket" />
-            </LinearLayout>
+<!--                            <ImageView-->
+<!--                                android:id="@+id/searchBtn"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginEnd="4dp"-->
+<!--                                style="@style/Screen"-->
+<!--                                android:padding="8dp"-->
+<!--                                app:srcCompat="@drawable/search_icon"-->
+<!--                                app:tint="@color/green" />-->
+<!--                        </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
-                android:padding="8dp"
-                android:orientation="horizontal">
+<!--                        <ImageView-->
+<!--                            android:id="@+id/cartBtn"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="50dp"-->
+<!--                            android:layout_marginStart="6dp"-->
+<!--                            android:background="@drawable/grey_background"-->
+<!--                            android:padding="12dp"-->
+<!--                            app:srcCompat="@drawable/basket"-->
+<!--                            app:tint="@color/green" />-->
+<!--                    </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="0.3333"
-                    android:background="@drawable/grey_background"
-                    android:orientation="horizontal">
 
-                    <ImageView
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginStart="16dp"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:padding="8dp">-->
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        app:srcCompat="@drawable/location" />
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_marginStart="4dp"-->
+<!--                            android:layout_marginEnd="4dp"-->
+<!--                            android:layout_weight="0.3333"-->
+<!--                            style="@style/Screen"-->
+<!--                            android:background="@drawable/grey_background"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            tools:layout_marginEnd="4dp"-->
+<!--                            tools:layout_marginStart="4dp">-->
 
-                    <Spinner
-                        android:id="@+id/locationSp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:background="@null"/>
-                </LinearLayout>
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center_vertical"-->
+<!--                                android:layout_marginStart="8dp"-->
+<!--                                app:srcCompat="@drawable/time"-->
+<!--                                app:tint="@color/green" />-->
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_weight="0.3333"
-                    android:background="@drawable/grey_background"
-                    android:orientation="horizontal"
-                    tools:layout_marginEnd="4dp"
-                    tools:layout_marginStart="4dp">
+<!--                            <Spinner-->
+<!--                                android:id="@+id/timeSp"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_margin="4dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                style="@style/Screen"-->
+<!--                        />-->
+<!--                        </LinearLayout>-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        app:srcCompat="@drawable/time" />
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_marginStart="8dp"-->
+<!--                            android:layout_weight="0.3333"-->
+<!--                            style="@style/Screen"-->
+<!--                            android:background="@drawable/grey_background"-->
+<!--                            android:orientation="horizontal">-->
 
-                    <Spinner
-                        android:id="@+id/timeSp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:background="@null"/>
-                </LinearLayout>
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center_vertical"-->
+<!--                                android:layout_marginStart="8dp"-->
+<!--                                app:srcCompat="@drawable/dollar"-->
+<!--                                app:tint="@color/green" />-->
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="0.3333"
-                    android:background="@drawable/grey_background"
-                    android:orientation="horizontal">
+<!--                            <Spinner-->
+<!--                                android:id="@+id/priceSp"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_margin="4dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                style="@style/Screen" />-->
+<!--                        </LinearLayout>-->
+<!--                </LinearLayout>-->
 
-                    <ImageView
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        app:srcCompat="@drawable/dollar" />
 
-                    <Spinner
-                        android:id="@+id/priceSp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:background="@null"/>
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-            </LinearLayout>
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:orientation="horizontal">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal">
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView10"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="Today best food's"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="22dp"-->
+<!--                        android:textStyle="bold" />-->
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Today best food's"
-                    android:textColor="@color/blue_grey"
-                    android:textSize="22dp"
-                    android:textStyle="bold"/>
+<!--                    <TextView-->
+<!--                        android:id="@+id/txtViewAll"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="VIEW ALL"-->
+<!--                        android:textColor="@color/green"-->
+<!--                        android:textStyle="bold" />-->
+<!--                </LinearLayout>-->
 
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/red"
-                    android:text="VIEW ALL" />
-            </LinearLayout>
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="16dp">-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+<!--                    <TextView-->
+<!--                        android:id="@+id/noFoodTextView"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Không có món ăn nào"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:visibility="gone"-->
+<!--                        tools:ignore="MissingConstraints" />-->
 
-                <TextView
-                    android:id="@+id/noFoodTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:text="Không có món ăn nào"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    tools:ignore="MissingConstraints" />
+<!--                    <ProgressBar-->
+<!--                        android:id="@+id/progressBarBestFood"-->
+<!--                        style="?android:attr/progressBarStyle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="@+id/bestFoodView"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/bestFoodView"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/bestFoodView" />-->
 
-                <ProgressBar
-                    android:id="@+id/progressBarBestFood"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/bestFoodView"
-                    app:layout_constraintStart_toStartOf="@+id/bestFoodView"
-                    app:layout_constraintTop_toTopOf="@+id/bestFoodView" />
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/bestFoodView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:clipToPadding="false"-->
+<!--                        android:paddingStart="8dp"-->
+<!--                        android:paddingEnd="8dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="1.0"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintVertical_bias="1.0">-->
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/bestFoodView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+<!--                    </androidx.recyclerview.widget.RecyclerView>-->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                </androidx.recyclerview.widget.RecyclerView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Choose Category"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="22dp"-->
+<!--                    android:textStyle="bold" />-->
 
-            <TextView
-                android:layout_marginStart="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_weight="1"
-                android:text="Choose Category"
-                android:textColor="@color/blue_grey"
-                android:textSize="22dp"
-                android:textStyle="bold" />
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+<!--                    <ProgressBar-->
+<!--                        android:id="@+id/progressBarCategory"-->
+<!--                        style="?android:attr/progressBarStyle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/categoryView"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/categoryView" />-->
 
-                <ProgressBar
-                    android:id="@+id/progressBarCategory"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/categoryView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/categoryView" />
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/categoryView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:clipToPadding="false"-->
+<!--                        android:paddingStart="8dp"-->
+<!--                        android:paddingEnd="8dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.0"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintVertical_bias="0.0" />-->
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/categoryView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="More"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="22dp"-->
+<!--                    android:textStyle="bold" />-->
 
-        </LinearLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ProgressBar-->
+<!--                        android:id="@+id/progressListFood"-->
+<!--                        style="?android:attr/progressBarStyle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/listFoodView"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/listFoodView" />-->
+
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/listFoodView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:clipToPadding="false"-->
+<!--                        android:paddingStart="8dp"-->
+<!--                        android:paddingEnd="8dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.0"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintVertical_bias="0.0" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </LinearLayout>-->
+<!--        </androidx.core.widget.NestedScrollView>-->
+    </FrameLayout>
+
+    <!-- Bottom Navigation View cố định dưới cùng -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        style="@style/Screen"
+        app:menu="@menu/bottom_menu"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

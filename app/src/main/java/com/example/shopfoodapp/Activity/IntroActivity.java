@@ -16,7 +16,7 @@ ActivityIntroBinding binding;
         setContentView(binding.getRoot());
 
         setVariable();
-        getWindow().setStatusBarColor(Color.parseColor("#FFE4B5"));
+        getWindow().setStatusBarColor(Color.parseColor("#0D1F29"));
     }
 
     private void setVariable() {

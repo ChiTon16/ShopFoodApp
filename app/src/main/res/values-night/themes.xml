@@ -4,4 +4,29 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+
+    <!--    Dark mode   -->
+    <!--  background dark mode  -->
+    <style name="Screen">
+        <item name="android:background">#0D1F29</item>
+    </style>
+    <!--  text background dark mode  -->
+    <style name="TEXT">
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+    <!--  tint dark mode  -->
+    <style name="Tint">
+        <item name="tint">#FFFFFFFF</item>
+    </style>
+    <style name="Thumbnail">
+        <item name="thumbTint">#FFFFFFFF</item>
+    </style>
+    <!--  thumbnail light mode  -->
+    <style name="Edt">
+        <item name="android:textColor">#617986</item>
+        <item name="android:background">#0D1F29</item>
+    </style>
+    <style name="Nen">
+        <item name="android:background">#0D1F29</item>
+    </style>
 </resources>
