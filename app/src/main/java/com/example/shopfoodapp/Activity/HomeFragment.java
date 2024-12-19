@@ -1,6 +1,7 @@
 package com.example.shopfoodapp.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,8 +23,12 @@ import com.example.shopfoodapp.Domain.Category;
 import com.example.shopfoodapp.Domain.Foods;
 import com.example.shopfoodapp.Domain.Price;
 import com.example.shopfoodapp.Domain.Time;
+import com.example.shopfoodapp.Domain.UserModel;
 import com.example.shopfoodapp.R;
+import com.example.shopfoodapp.Utils.AndroidUtils;
+import com.example.shopfoodapp.Utils.FirebaseUtils;
 import com.example.shopfoodapp.databinding.FragmentHomeBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +44,7 @@ import java.util.Collections;
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private DatabaseReference database;
-
+    UserModel currentUserModel;
 
 
     @Override
@@ -47,6 +52,22 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         database = FirebaseDatabase.getInstance().getReference();
+
+        FirebaseUtils.currentUserDetails().get().addOnCompleteListener(task -> {
+            currentUserModel = task.getResult().toObject(UserModel.class);
+            binding.txtUserName.setText(currentUserModel.getUsername());
+        });
+
+        FirebaseUtils.getCurrentProfilePicStorageRef().getDownloadUrl()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Uri uri  = task.getResult();
+                        AndroidUtils.setProfilePic(getContext(),uri,binding.avtMain);
+                    } else {
+                        // Sử dụng ảnh mặc định nếu không có ảnh trong Firebase Storage
+                        AndroidUtils.setProfilePic(getContext(), Uri.parse("android.resource://" + getContext().getPackageName() + "/" + R.drawable.avtpro), binding.avtMain);
+                    }
+                });
 
         initTime();
         initPrice();
@@ -78,6 +99,14 @@ public class HomeFragment extends Fragment {
         });
 
         binding.cartBtn.setOnClickListener(view -> startActivity(new Intent(getActivity(), CartActivity.class)));
+
+        binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+            }
+        });
     }
 
     private void initBestFood() {
@@ -242,4 +271,5 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
 }

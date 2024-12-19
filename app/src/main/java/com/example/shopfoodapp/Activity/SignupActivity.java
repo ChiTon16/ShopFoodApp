@@ -1,7 +1,6 @@
 package com.example.shopfoodapp.Activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,8 +13,6 @@ import java.util.Map;
 
 public class SignupActivity extends BaseActivity {
     ActivitySingupBinding binding;
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private Uri avatarUri; // Lưu URI ảnh được chọn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
