@@ -15,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopFoodApp">
         <activity
+            android:name=".Activity.CompleteSingupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.LoginUserNameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.LoginOtpActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ProfileActivity"
             android:exported="false" />
         <activity

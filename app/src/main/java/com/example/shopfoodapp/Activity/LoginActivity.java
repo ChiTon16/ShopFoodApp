@@ -18,6 +18,7 @@ import com.example.shopfoodapp.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends BaseActivity {
     ActivityLoginBinding binding;
@@ -29,37 +30,53 @@ public class LoginActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         setVariable();
-        binding.loginBtn.setOnClickListener(view -> {
-            String email = binding.userEdt.getText().toString();
-            String password = binding.passEdt.getText().toString();
-            if (!email.isEmpty() && !password.isEmpty()) {
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
-                    if (task.isSuccessful()) {
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    }
-                    else {
-                        Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        binding.btnLogin.setOnClickListener(view -> {
+            String email = binding.edtEmail.getText().toString();
+            String password = binding.etPassword.getText().toString();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
             }
-            else {
-                Toast.makeText(LoginActivity.this, "Please fill username and password", Toast.LENGTH_SHORT).show();
-            }
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // Lấy đối tượng người dùng hiện tại
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null) {
+                                if (user.isEmailVerified()) {
+                                    // Email đã xác thực -> Chuyển đến MainActivity
+                                    Intent intent = new Intent(this, CompleteSingupActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    // Email chưa xác thực
+                                    Toast.makeText(this, "Please verify your email before logging in.", Toast.LENGTH_SHORT).show();
+                                    mAuth.signOut(); // Đăng xuất người dùng
+                                }
+                            }
+                        } else {
+                            // Đăng nhập thất bại
+                            Toast.makeText(this, "Failed to sign in: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
 
-        binding.txtSignUp.setOnClickListener(new View.OnClickListener() {
+        binding.tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
 
     private void setVariable() {
-        binding.loginBtn.setOnClickListener(view -> {
-            String email = binding.userEdt.getText().toString();
-            String password = binding.passEdt.getText().toString();
+        binding.btnLogin.setOnClickListener(view -> {
+            String email = binding.edtEmail.getText().toString();
+            String password = binding.etPassword.getText().toString();
 
             if (password.length() < 6){
                 Toast.makeText(LoginActivity.this, "Your password must be 6 character", Toast.LENGTH_SHORT).show();

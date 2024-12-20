@@ -55,16 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        setVariable();
     }
 
-    private void setVariable() {
-        binding.backBtn.setOnClickListener(view -> {
-            Intent intent = new Intent();
-            intent.putExtra("selectHome", true);
-            setResult(RESULT_OK, intent);
-            finish();
-        });
-    }
 
 }

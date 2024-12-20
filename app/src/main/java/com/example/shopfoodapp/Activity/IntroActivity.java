@@ -20,15 +20,17 @@ ActivityIntroBinding binding;
     }
 
     private void setVariable() {
-        binding.loginBtn.setOnClickListener(view -> {
+        binding.btnSignIn.setOnClickListener(view -> {
             if (mAuth.getCurrentUser() != null) {
                 startActivity(new Intent(IntroActivity.this, MainActivity.class));
+                finish();
             }
             else {
                 startActivity(new Intent(IntroActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
-        binding.signupBtn.setOnClickListener(view -> startActivity(new Intent(IntroActivity.this, SignupActivity.class)));
+        binding.btnSignUp.setOnClickListener(view -> startActivity(new Intent(IntroActivity.this, SignupActivity.class)));
     }
 }

@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.shopfoodapp.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -17,6 +18,7 @@ public class BaseActivity extends AppCompatActivity {
 FirebaseAuth mAuth;
 FirebaseDatabase database;
 FirebaseFirestore db = FirebaseFirestore.getInstance();
+FirebaseUser user;
 public String TAG="uilover";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public String TAG="uilover";
 
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         getWindow().setStatusBarColor(getResources().getColor(R.color.white));
     }
