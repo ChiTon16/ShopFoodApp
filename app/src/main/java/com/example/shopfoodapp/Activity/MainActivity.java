@@ -47,6 +47,7 @@ import java.util.Collections;
     private ActivityMainBinding binding;
     private HomeFragment homeFragment;
     private ProfileFragment profileFragment;
+    private OrderHistoryFragment orderHistoryFragment;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -68,12 +69,17 @@ import java.util.Collections;
 
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
+        orderHistoryFragment = new OrderHistoryFragment();
 
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.home:
                     // Hiển thị HomeFragment
                     replaceFragment(homeFragment);
+                    return true;
+
+                case R.id.order:
+                    replaceFragment(orderHistoryFragment);
                     return true;
 
                 case R.id.profile:

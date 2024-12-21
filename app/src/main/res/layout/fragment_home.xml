@@ -131,46 +131,17 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
+                    android:layout_gravity="center"
                     android:padding="8dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="0.3333"
-                        style="@style/Screen"
-                        android:background="@drawable/grey_background"
-                        android:orientation="horizontal"
-                        tools:layout_marginEnd="4dp"
-                        tools:layout_marginStart="4dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            app:srcCompat="@drawable/time"
-                            app:tint="@color/green" />
-
-                        <Spinner
-                            android:id="@+id/timeSp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="4dp"
-                            android:layout_weight="1"
-                            style="@style/Screen"
-                            />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
                         android:layout_weight="0.3333"
@@ -188,7 +159,7 @@
 
                         <Spinner
                             android:id="@+id/priceSp"
-                            android:layout_width="match_parent"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
                             android:layout_margin="4dp"
                             android:layout_weight="1"

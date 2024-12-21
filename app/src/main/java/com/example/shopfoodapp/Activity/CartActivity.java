@@ -1,5 +1,6 @@
 package com.example.shopfoodapp.Activity;
 
+import android.content.Intent;
 import android.os.Binder;
 import android.os.Bundle;
 import android.util.Log;
@@ -80,8 +81,31 @@ public class CartActivity extends BaseActivity {
     }
 
     private void placeOrder() {
+        Intent intent = new Intent(this, SelectLocationActivity.class);
+        startActivityForResult(intent, 1); // Request code 1
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            double latitude = data.getDoubleExtra("latitude", 0);
+            double longitude = data.getDoubleExtra("longitude", 0);
+
+            // Xử lý vị trí được chọn
+            String locationMessage = "Selected location: (" + latitude + ", " + longitude + ")";
+            Toast.makeText(this, locationMessage, Toast.LENGTH_SHORT).show();
+
+            // Thêm vị trí vào đơn hàng
+            uploadOrderWithLocation(latitude, longitude);
+        }
+    }
+
+    private void uploadOrderWithLocation(double latitude, double longitude) {
         // Khởi tạo Firebase Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = user.getUid(); // Lấy user ID
 
         // Tạo danh sách các mặt hàng trong giỏ hàng
         ArrayList<HashMap<String, Object>> items = new ArrayList<>();
@@ -90,35 +114,40 @@ public class CartActivity extends BaseActivity {
             item.put("name", food.getTitle());
             item.put("quantity", food.getNumberInCart());
             item.put("price", food.getPrice());
+            item.put("imageUrl", food.getImagePath()); // Lấy URL ảnh từ đối tượng Foods
             items.add(item);
         }
 
         // Tạo dữ liệu đơn hàng
         HashMap<String, Object> order = new HashMap<>();
-        order.put("items", items);
-        order.put("subtotal", managmentCart.getTotalFee());
-        order.put("delivery", 10.0); // Delivery Fee
-        order.put("tax", tax);       // Tax
-        order.put("total", managmentCart.getTotalFee() + 10 + tax);
-        order.put("status", "Pending");
-        order.put("timestamp", System.currentTimeMillis());
+        order.put("items", items);                        // Danh sách sản phẩm
+        order.put("subtotal", managmentCart.getTotalFee()); // Tổng tiền sản phẩm
+        order.put("delivery", 10.0);                      // Phí giao hàng (cố định 10)
+        order.put("tax", tax);                            // Thuế
+        order.put("total", managmentCart.getTotalFee() + 10 + tax); // Tổng tiền
+        order.put("status", "Pending");                   // Trạng thái đơn hàng
+        order.put("timestamp", System.currentTimeMillis()); // Thời gian
+        order.put("location", new HashMap<String, Double>() {{ // Thêm vị trí
+            put("latitude", latitude);
+            put("longitude", longitude);
+        }});
 
-        // Gửi đơn hàng lên Firebase
-        db.collection("orders")
+        // Lưu đơn hàng vào subcollection "orders" của người dùng
+        db.collection("users").document(userId).collection("orders")
                 .add(order)
                 .addOnSuccessListener(documentReference -> {
-                    Log.d("PlaceOrder", "Order placed successfully.");
-                    // Hiển thị thông báo thành công
+                    // Làm sạch giỏ hàng sau khi đặt hàng thành công
+                    managmentCart.clearCart();
+                    initList(); // Cập nhật lại danh sách giỏ hàng để hiển thị trạng thái trống
                     Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_SHORT).show();
-                    // Điều hướng hoặc reset giao diện
                     finish(); // Quay lại màn hình trước
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("PlaceOrder", "Failed to place order.", e);
-                    // Hiển thị thông báo lỗi
                     Toast.makeText(this, "Failed to place order. Try again!", Toast.LENGTH_SHORT).show();
                 });
     }
+
+
 
 
     private void setVariable() {

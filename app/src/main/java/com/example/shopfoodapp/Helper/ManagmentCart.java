@@ -1,6 +1,7 @@
 package com.example.shopfoodapp.Helper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.example.shopfoodapp.Domain.Foods;
@@ -62,5 +63,11 @@ public class ManagmentCart {
         listItem.get(position).setNumberInCart(listItem.get(position).getNumberInCart()+1);
         tinyDB.putListObject("CartList",listItem);
         changeNumberItemsListener.change();
+    }
+
+    // Xóa toàn bộ giỏ hàng
+    public void clearCart() {
+        tinyDB.remove("CartList");
+
     }
 }
