@@ -8,7 +8,7 @@
     <!--    Dark mode   -->
     <!--  background dark mode  -->
     <style name="Screen">
-        <item name="android:background">#0D1F29</item>
+        <item name="android:background">#161622</item>
     </style>
     <!--  text background dark mode  -->
     <style name="TEXT">
@@ -24,9 +24,9 @@
     <!--  thumbnail light mode  -->
     <style name="Edt">
         <item name="android:textColor">#617986</item>
-        <item name="android:background">#0D1F29</item>
+        <item name="android:background">#161622</item>
     </style>
     <style name="Nen">
-        <item name="android:background">#0D1F29</item>
+        <item name="android:background">#21212C</item>
     </style>
 </resources>

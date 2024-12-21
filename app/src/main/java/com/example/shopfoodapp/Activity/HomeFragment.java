@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
         database = FirebaseDatabase.getInstance().getReference();
 
         // Cài đặt RecyclerView và adapter
-        binding.listFoodView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.listFoodView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new FoodListAdapter(foodList);
         binding.listFoodView.setAdapter(adapter);
 

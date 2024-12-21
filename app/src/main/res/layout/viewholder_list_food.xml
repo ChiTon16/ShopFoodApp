@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/bgList"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img">
 
@@ -60,7 +61,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/timeTxt"
                 app:layout_constraintStart_toEndOf="@+id/timeTxt"
                 app:layout_constraintTop_toTopOf="@+id/timeTxt"
-                app:srcCompat="@drawable/time" />
+                app:srcCompat="@drawable/time"
+                app:tint="@color/green" />
 
             <TextView
                 android:id="@+id/priceTxt"
@@ -69,7 +71,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="$0"
-                android:textColor="@color/red"
+                android:textColor="@color/green"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

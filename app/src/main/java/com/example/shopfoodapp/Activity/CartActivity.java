@@ -67,7 +67,8 @@ public class CartActivity extends BaseActivity {
 
     private void caculateCart() {
         double percentTax = 0.02; //2% tax
-        double delivery = 10; // 10 Dollar
+        double delivery = managmentCart.getTotalFee()*0.1; // 10%
+        delivery = Math.round(delivery * 100.0) / 100.0;
 
         tax = Math.round(managmentCart.getTotalFee()*percentTax* 100.0) / 100;
 
@@ -122,9 +123,9 @@ public class CartActivity extends BaseActivity {
         HashMap<String, Object> order = new HashMap<>();
         order.put("items", items);                        // Danh sách sản phẩm
         order.put("subtotal", managmentCart.getTotalFee()); // Tổng tiền sản phẩm
-        order.put("delivery", 10.0);                      // Phí giao hàng (cố định 10)
+        order.put("delivery", Math.round(managmentCart.getTotalFee() *0.1 * 100.0) / 100.0);                      // Phí giao hàng (cố định 10)
         order.put("tax", tax);                            // Thuế
-        order.put("total", managmentCart.getTotalFee() + 10 + tax); // Tổng tiền
+        order.put("total", managmentCart.getTotalFee() + managmentCart.getTotalFee() * 0.1); // Tổng tiền
         order.put("status", "Pending");                   // Trạng thái đơn hàng
         order.put("timestamp", System.currentTimeMillis()); // Thời gian
         order.put("location", new HashMap<String, Double>() {{ // Thêm vị trí
