@@ -80,6 +80,11 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please wait before resending email.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        binding.btnLogin.setOnClickListener(view -> {
+            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+            finish();
+        });
     }
 
     private void saveUsernameToFirestore(String userId, String username) {

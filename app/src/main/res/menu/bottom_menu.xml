@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/order"
-        android:icon="@drawable/home"
+        android:icon="@drawable/history"
         android:title="Ordered" />
 
     <item

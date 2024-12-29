@@ -48,19 +48,19 @@ public class DetailActivity extends BaseActivity {
         binding.descriptionTxt.setText(object.getDescription());
         binding.rateTxt.setText(object.getStar() + "rating");
         binding.ratingBar.setRating((float) object.getStar());
-        binding.totalTxt.setText((num*object.getPrice() + "$"));
+        binding.totalTxt.setText(decimalFormat.format( num * object.getPrice()  )+ " VND");
 
         binding.plusBtn.setOnClickListener(view -> {
             num = num + 1;
             binding.numTxt.setText(num + " ");
-            binding.totalTxt.setText("$" + (num* object.getPrice()));
+            binding.totalTxt.setText(decimalFormat.format( num * object.getPrice()  )+ " VND");
         });
 
         binding.minusBtn.setOnClickListener(view -> {
             if (num > 1) {
                 num = num - 1;
                 binding.numTxt.setText(num + " ");
-                binding.totalTxt.setText("$" + (num* object.getPrice()));
+                binding.totalTxt.setText(decimalFormat.format( num * object.getPrice()  )+ " VND");
             }
         });
 

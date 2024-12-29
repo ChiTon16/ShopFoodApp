@@ -16,6 +16,7 @@ import com.example.shopfoodapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,6 +24,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     private final ArrayList<HashMap<String, Object>> orderList;
     private final OnOrderDeletedListener onOrderDeletedListener;
+    DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     public OrderHistoryAdapter(ArrayList<HashMap<String, Object>> orderList, OnOrderDeletedListener onOrderDeletedListener) {
         this.orderList = orderList;
@@ -41,7 +43,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         HashMap<String, Object> order = orderList.get(position);
 
         holder.orderIdTextView.setText("Order ID: " + order.get("orderId"));
-        holder.orderTotalTextView.setText("Total: $" + order.get("total"));
+        holder.orderTotalTextView.setText("Total: " + decimalFormat.format(order.get("total")));
         holder.orderStatusTextView.setText("Status: " + order.get("status"));
 
         ArrayList<HashMap<String, Object>> items = (ArrayList<HashMap<String, Object>>) order.get("items");

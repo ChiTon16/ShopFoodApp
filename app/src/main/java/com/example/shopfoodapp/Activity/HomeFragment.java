@@ -66,21 +66,32 @@ public class HomeFragment extends Fragment {
 
         // Cập nhật thông tin người dùng
         FirebaseUtils.currentUserDetails().get().addOnCompleteListener(task -> {
-            currentUserModel = task.getResult().toObject(UserModel.class);
-            binding.txtUserName.setText(currentUserModel.getUsername());
+            if (task.isSuccessful() && task.getResult() != null) {
+                currentUserModel = task.getResult().toObject(UserModel.class);
+                if (currentUserModel != null && currentUserModel.getUsername() != null) {
+                    binding.txtUserName.setText(currentUserModel.getUsername());
+                } else {
+                    binding.txtUserName.setText("User");
+                }
+            } else {
+                Log.e("HomeFragment", "Failed to fetch user details: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
+                binding.txtUserName.setText("User");
+            }
         });
+
 
         // Hiển thị ảnh đại diện
         FirebaseUtils.getCurrentProfilePicStorageRef().getDownloadUrl()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful() && task.getResult() != null) {
                         Uri uri = task.getResult();
                         AndroidUtils.setProfilePic(getContext(), uri, binding.avtMain);
                     } else {
-                        // Sử dụng ảnh mặc định nếu không có ảnh trong Firebase Storage
+                        Log.e("HomeFragment", "Failed to fetch profile picture: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
                         AndroidUtils.setProfilePic(getContext(), Uri.parse("android.resource://" + getContext().getPackageName() + "/" + R.drawable.avtpro), binding.avtMain);
                     }
                 });
+
 
         initPrice();
         initBestFood();
@@ -101,10 +112,14 @@ public class HomeFragment extends Fragment {
                 if (snapshot.exists()) {
                     for (DataSnapshot data : snapshot.getChildren()) {
                         Foods food = data.getValue(Foods.class);
-                        foodList.add(food);
-                        lastKey = data.getKey(); // Lưu khóa cuối cùng
+                        if (food != null) {
+                            foodList.add(food);
+                        }
+                        lastKey = data.getKey(); // Cập nhật khóa cuối
                     }
                     adapter.notifyDataSetChanged();
+                } else {
+                    Log.e("LazyLoading", "No foods found in the database.");
                 }
                 isLoading = false; // Hoàn tất tải
             }
@@ -277,11 +292,16 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot issue : snapshot.getChildren()) {
-                        list.add(issue.getValue(Price.class));
+                        Price price = issue.getValue(Price.class);
+                        if (price != null) {
+                            list.add(price);
+                        }
                     }
                     ArrayAdapter<Price> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.priceSp.setAdapter(adapter);
+                } else {
+                    Log.e("HomeFragment", "No price data found in the database.");
                 }
             }
 
@@ -290,5 +310,6 @@ public class HomeFragment extends Fragment {
                 Log.e("HomeFragment", "Failed to load Price data: " + error.getMessage());
             }
         });
+
     }
 }

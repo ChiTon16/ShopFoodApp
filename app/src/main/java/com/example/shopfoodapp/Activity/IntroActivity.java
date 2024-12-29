@@ -31,6 +31,9 @@ ActivityIntroBinding binding;
             }
         });
 
-        binding.btnSignUp.setOnClickListener(view -> startActivity(new Intent(IntroActivity.this, SignupActivity.class)));
+        binding.btnSignUp.setOnClickListener(view -> {
+            startActivity(new Intent(IntroActivity.this, SignupActivity.class));
+            finish();
+        });
     }
 }

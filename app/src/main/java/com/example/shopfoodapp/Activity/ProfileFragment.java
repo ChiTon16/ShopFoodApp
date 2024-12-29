@@ -116,14 +116,15 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    void updateToFirestore(){
+    void updateToFirestore() {
         FirebaseUtils.currentUserDetails().set(currentUserModel)
                 .addOnCompleteListener(task -> {
+                    if (!isAdded()) return; // Fragment đã bị detach
                     setInProgress(false);
-                    if(task.isSuccessful()){
-                        AndroidUtils.showToast(getContext(),"Updated successfully");
-                    }else{
-                        AndroidUtils.showToast(getContext(),"Updated failed");
+                    if (task.isSuccessful()) {
+                        AndroidUtils.showToast(requireContext(), "Updated successfully");
+                    } else {
+                        AndroidUtils.showToast(requireContext(), "Updated failed");
                     }
                 });
     }

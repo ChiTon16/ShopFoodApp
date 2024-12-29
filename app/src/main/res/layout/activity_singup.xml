@@ -105,11 +105,24 @@
         android:id="@+id/btnResend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:text="Resend Code"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:enabled="false"
         app:layout_constraintTop_toBottomOf="@+id/btnSingup" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="#DFB497"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnResend" />
 
     <Button
         android:id="@+id/btnSingup"
@@ -119,8 +132,8 @@
         android:backgroundTint="#DFB497"
         android:text="Sign Up"
         android:textColor="@android:color/white"
-        android:textStyle="bold"
         android:textSize="23dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/cardPassword"
         app:layout_constraintStart_toStartOf="@id/cardPassword"
         app:layout_constraintTop_toBottomOf="@+id/cardPassword" />

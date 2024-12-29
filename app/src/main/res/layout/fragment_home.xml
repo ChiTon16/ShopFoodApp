@@ -185,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Today best food's"
-                    android:textColor="@color/white"
+                    style="@style/TEXT"
                     android:textSize="22dp"
                     android:textStyle="bold" />
 
