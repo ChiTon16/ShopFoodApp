@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.shopfoodapp.Activity.ListFoodsActivity;
@@ -81,7 +82,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.viewho
                 , "drawable", holder.itemView.getContext().getPackageName());
         Glide.with(context)
                 .load(drawableResourceId)
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // Không sử dụng bộ nhớ đệm trên ổ đĩa
+                .skipMemoryCache(true) // Bỏ qua bộ nhớ đệm trên RAM
                 .into(holder.pic);
+
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, ListFoodsActivity.class);

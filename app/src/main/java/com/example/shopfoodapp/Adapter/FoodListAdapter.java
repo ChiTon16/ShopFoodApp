@@ -18,11 +18,13 @@ import com.example.shopfoodapp.Activity.DetailActivity;
 import com.example.shopfoodapp.Domain.Foods;
 import com.example.shopfoodapp.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewholder> {
     ArrayList<Foods> items;
     Context context;
+    DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     public FoodListAdapter(ArrayList<Foods> items) {
         this.items = items;
@@ -40,7 +42,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
     public void onBindViewHolder(@NonNull FoodListAdapter.viewholder holder, int position) {
         holder.titleTxt.setText(items.get(position).getTitle());
         holder.timeTxt.setText(items.get(position).getTimeValue() + "min");
-        holder.priceTxt.setText("$" + items.get(position).getPrice());
+        holder.priceTxt.setText( decimalFormat.format(items.get(position).getPrice()) + " VND" );
         holder.rateTxt.setText(""+items.get(position).getStar());
 
         Glide.with(context)

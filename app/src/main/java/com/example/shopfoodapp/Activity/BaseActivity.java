@@ -19,6 +19,7 @@ FirebaseAuth mAuth;
 FirebaseDatabase database;
 FirebaseFirestore db = FirebaseFirestore.getInstance();
 FirebaseUser user;
+
 public String TAG="uilover";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

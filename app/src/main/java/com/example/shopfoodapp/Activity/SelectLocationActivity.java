@@ -11,11 +11,14 @@ import com.example.shopfoodapp.R;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.MapEventsOverlay;
 
-import java.io.File;
+
+
 import java.util.Locale;
 
 public class SelectLocationActivity extends AppCompatActivity {
@@ -31,8 +34,6 @@ public class SelectLocationActivity extends AppCompatActivity {
         Configuration.getInstance().setUserAgentValue(getPackageName());
         Configuration.getInstance().setTileFileSystemCacheMaxBytes(1024 * 1024 * 50); // 50MB cache
         Configuration.getInstance().setTileFileSystemCacheTrimBytes(1024 * 1024 * 40); // 40MB trim cache
-        Configuration.getInstance().setCacheMapTileCount((short) 9); // Cache 9 tiles
-        Configuration.getInstance().setCacheMapTileOvershoot((short) 2); // Cache overshoot tiles
 
         setContentView(R.layout.activity_select_location);
 
@@ -45,18 +46,37 @@ public class SelectLocationActivity extends AppCompatActivity {
         GeoPoint defaultLocation = new GeoPoint(10.762622, 106.660172);
         mapController.setCenter(defaultLocation);
 
-        // Add marker on map click
-        mapView.setOnTouchListener((v, event) -> {
-            mapView.getOverlays().clear();
-            selectedLocation = new GeoPoint(defaultLocation.getLatitude(), defaultLocation.getLongitude());
+        // Add event overlay for map click
+        MapEventsReceiver mapEventsReceiver = new MapEventsReceiver() {
+            @Override
+            public boolean singleTapConfirmedHelper(GeoPoint geoPoint) {
+                // Xóa chỉ các marker, giữ lại MapEventsOverlay
+                mapView.getOverlays().removeIf(overlay -> overlay instanceof Marker);
 
-            Marker marker = new Marker(mapView);
-            marker.setPosition(selectedLocation);
-            marker.setTitle("Selected Location");
-            mapView.getOverlays().add(marker);
+                // Cập nhật vị trí đã chọn
+                selectedLocation = geoPoint;
 
-            return false;
-        });
+                // Thêm marker mới
+                Marker marker = new Marker(mapView);
+                marker.setPosition(selectedLocation);
+                marker.setTitle(String.format(Locale.US, "Lat: %.6f, Lon: %.6f", geoPoint.getLatitude(), geoPoint.getLongitude()));
+                mapView.getOverlays().add(marker);
+
+                // Hiển thị lại bản đồ
+                mapView.invalidate();
+                return true;
+            }
+
+            @Override
+            public boolean longPressHelper(GeoPoint geoPoint) {
+                // Không xử lý nhấn giữ
+                return false;
+            }
+        };
+
+
+        MapEventsOverlay eventsOverlay = new MapEventsOverlay(mapEventsReceiver);
+        mapView.getOverlays().add(eventsOverlay);
 
         // Confirm location button
         Button confirmButton = findViewById(R.id.confirmLocationButton);

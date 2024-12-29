@@ -18,6 +18,7 @@ import com.example.shopfoodapp.Helper.ChangeNumberItemsListener;
 import com.example.shopfoodapp.Helper.ManagmentCart;
 import com.example.shopfoodapp.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -25,6 +26,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.viewholder> {
     ArrayList<Foods> list;
     private ManagmentCart managmentCart;
     ChangeNumberItemsListener changeNumberItemsListener;
+    DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     public CartAdapter(ArrayList<Foods> list, Context context, ChangeNumberItemsListener changeNumberItemsListener) {
         this.list = list;
@@ -42,8 +44,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.viewholder> {
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.viewholder holder, int position) {
         holder.title.setText(list.get(position).getTitle());
-        holder.feeEachItem.setText("$" + (list.get(position).getNumberInCart()*list.get(position).getPrice()));
-        holder.totalEachItem.setText(list.get(position).getNumberInCart() + " * $" + (
+        holder.feeEachItem.setText((decimalFormat.format(list.get(position).getNumberInCart()*list.get(position).getPrice()))+ "VND");
+        holder.totalEachItem.setText(list.get(position).getNumberInCart() + " * " + (
                 list.get(position).getPrice()));
         holder.num.setText(list.get(position).getNumberInCart()+ "");
 

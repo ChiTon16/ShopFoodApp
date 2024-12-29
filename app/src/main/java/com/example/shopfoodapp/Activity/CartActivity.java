@@ -26,6 +26,7 @@ import com.example.shopfoodapp.R;
 import com.example.shopfoodapp.databinding.ActivityCartBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,6 +35,7 @@ public class CartActivity extends BaseActivity {
     private RecyclerView.Adapter adapter;
     private ManagmentCart managmentCart;
     private double tax;
+    DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +77,10 @@ public class CartActivity extends BaseActivity {
         double total = Math.round((managmentCart.getTotalFee() + tax + delivery)* 100)/100;
         double itemTotal = Math.round(managmentCart.getTotalFee() * 100) / 100;
 
-        binding.totalFeeTxt.setText("$" + itemTotal);
-        binding.taxTxt.setText("$" + tax);
-        binding.deliveryTxt.setText("$" + delivery);
-        binding.totalTxt.setText("$" + total);
+        binding.totalFeeTxt.setText(decimalFormat.format( itemTotal  )+ " VND");
+        binding.taxTxt.setText(decimalFormat.format( tax  )+ " VND");
+        binding.deliveryTxt.setText(decimalFormat.format( delivery  )+ " VND");
+        binding.totalTxt.setText(decimalFormat.format( total  )+ " VND");
     }
 
     private void placeOrder() {

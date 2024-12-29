@@ -15,11 +15,14 @@ import com.example.shopfoodapp.Helper.ManagmentCart;
 import com.example.shopfoodapp.R;
 import com.example.shopfoodapp.databinding.ActivityDetailBinding;
 
+import java.text.DecimalFormat;
+
 public class DetailActivity extends BaseActivity {
     ActivityDetailBinding binding;
     private Foods object;
     private int num = 1;
     private ManagmentCart managmentCart;
+    DecimalFormat decimalFormat = new DecimalFormat("#,###");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,7 @@ public class DetailActivity extends BaseActivity {
                 .load(object.getImagePath())
                 .into(binding.pic);
 
-        binding.priceTxt.setText("$" + object.getPrice());
+        binding.priceTxt.setText(decimalFormat.format( object.getPrice()  )+ " VND");
         binding.titleTxt.setText(object.getTitle());
         binding.descriptionTxt.setText(object.getDescription());
         binding.rateTxt.setText(object.getStar() + "rating");
