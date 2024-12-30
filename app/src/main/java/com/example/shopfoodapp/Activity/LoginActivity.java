@@ -29,7 +29,6 @@ public class LoginActivity extends BaseActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setVariable();
         binding.btnLogin.setOnClickListener(view -> {
             String email = binding.edtEmail.getText().toString();
             String password = binding.etPassword.getText().toString();
@@ -70,27 +69,6 @@ public class LoginActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
             }
-        });
-    }
-
-    private void setVariable() {
-        binding.btnLogin.setOnClickListener(view -> {
-            String email = binding.edtEmail.getText().toString();
-            String password = binding.etPassword.getText().toString();
-
-            if (password.length() < 6){
-                Toast.makeText(LoginActivity.this, "Your password must be 6 character", Toast.LENGTH_SHORT).show();
-            }
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
-                if (task.isComplete()) {
-                    Log.i(TAG, "onComplete: ");
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                }
-                else {
-                    Log.i(TAG, "failure: ", task.getException());
-                    Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-                }
-            });
         });
     }
 }
